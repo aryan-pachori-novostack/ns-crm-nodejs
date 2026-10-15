@@ -281,7 +281,7 @@ exports.crmLoginOtpEmailTemplate = (otp, validityLabel = '2 minutes') => `<!DOCT
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ruloans CRM OTP Verification</title>
+<title>Novostack CRM OTP Verification</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f7fa;">
@@ -290,14 +290,14 @@ exports.crmLoginOtpEmailTemplate = (otp, validityLabel = '2 minutes') => `<!DOCT
       <td align="center">
         <table cellpadding="0" cellspacing="0" width="100%" style="max-width:500px; background:#ffffff; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.08); overflow:hidden;">
           <tr>
-           <td align="center" style="background-color:#666CFF; padding:20px;">
+           <td align="center" style="background-color:#070b09; padding:20px;">
                 <table cellpadding="0" cellspacing="0" border="0" style="display:inline-block;">
                   <tr>
                     <td>
-                      <img src="https://crm.ruloans.com/images/logo.png" alt="Ruloans" width="40" style="display:block; vertical-align:middle;">
+                      <span style="display:inline-block; width:36px; height:36px; line-height:36px; border-radius:10px; background:#111827; color:#ffffff; font-size:18px; font-weight:700; font-family:Arial, sans-serif;">N</span>
                     </td>
                     <td style="padding-left:10px;">
-                      <span style="font-size:20px; font-weight:bold; color:#ffffff; font-family:Arial, sans-serif;">RULoans</span>
+                      <span style="font-size:20px; font-weight:bold; color:#ffffff; font-family:Arial, sans-serif;">Novostack</span>
                     </td>
                   </tr>
                 </table>
@@ -308,14 +308,14 @@ exports.crmLoginOtpEmailTemplate = (otp, validityLabel = '2 minutes') => `<!DOCT
               <h1 style="margin:0; color:#333333; font-size:22px;">OTP Verification</h1>
               <p style="margin-top:10px; font-size:15px; color:#555555;">Please use the following OTP to complete your CRM verification. This OTP is valid for <strong>${validityLabel}</strong>.</p>
               <div style="margin:25px 0;">
-                <span style="font-size:28px; letter-spacing:10px; font-weight:bold; color:#004aad;">${otp}</span>
+                <span style="font-size:28px; letter-spacing:10px; font-weight:bold; color:#3A8A70;">${otp}</span>
               </div>
               <p style="font-size:14px; color:#777777; margin:0;">If you did not request this OTP, please ignore this email.</p>
             </td>
           </tr>
           <tr>
             <td style="background-color:#f4f7fa; padding:20px; text-align:center; font-size:12px; color:#888888;">
-              © ${new Date().getFullYear()} Ruloans Distribution Services Pvt. Ltd.<br>
+              © ${new Date().getFullYear()} Novostack<br>
               All Rights Reserved.
             </td>
           </tr>
@@ -331,7 +331,7 @@ exports.dsaEmailVerificationOtpEmailTemplate = (otp, validityLabel = '10 minutes
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RULOANS — Email Verification OTP</title>
+<title>Novostack — Email Verification OTP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f7fa;">
@@ -340,14 +340,14 @@ exports.dsaEmailVerificationOtpEmailTemplate = (otp, validityLabel = '10 minutes
       <td align="center">
         <table cellpadding="0" cellspacing="0" width="100%" style="max-width:500px; background:#ffffff; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.08); overflow:hidden;">
           <tr>
-            <td align="center" style="background-color:#666CFF; padding:20px;">
+            <td align="center" style="background-color:#070b09; padding:20px;">
               <table cellpadding="0" cellspacing="0" border="0" style="display:inline-block;">
                 <tr>
                   <td>
-                    <img src="https://crm.ruloans.com/images/logo.png" alt="RULOANS" width="40" style="display:block; vertical-align:middle;">
+                    <span style="display:inline-block; width:36px; height:36px; line-height:36px; border-radius:10px; background:#111827; color:#ffffff; font-size:18px; font-weight:700; font-family:Arial, sans-serif;">N</span>
                   </td>
                   <td style="padding-left:10px;">
-                    <span style="font-size:20px; font-weight:bold; color:#ffffff; font-family:Arial, sans-serif;">RULOANS</span>
+                    <span style="font-size:20px; font-weight:bold; color:#ffffff; font-family:Arial, sans-serif;">Novostack</span>
                   </td>
                 </tr>
               </table>
@@ -357,11 +357,11 @@ exports.dsaEmailVerificationOtpEmailTemplate = (otp, validityLabel = '10 minutes
             <td style="padding:30px; text-align:center;">
               <h1 style="margin:0; color:#333333; font-size:22px;">Verify your email address</h1>
               <p style="margin-top:12px; font-size:15px; color:#555555; line-height:1.5;">
-                You requested a one-time password (OTP) to verify your email on <strong>RULOANS</strong>.
+                You requested a one-time password (OTP) to verify your email on <strong>Novostack</strong>.
                 Enter the code below to complete verification. This OTP is valid for <strong>${validityLabel}</strong>.
               </p>
               <div style="margin:25px 0;">
-                <span style="font-size:28px; letter-spacing:10px; font-weight:bold; color:#004aad;">${otp}</span>
+                <span style="font-size:28px; letter-spacing:10px; font-weight:bold; color:#3A8A70;">${otp}</span>
               </div>
               <p style="font-size:14px; color:#777777; margin:0; line-height:1.5;">
                 If you did not request this code, please ignore this email. Do not share this OTP with anyone.
@@ -370,7 +370,7 @@ exports.dsaEmailVerificationOtpEmailTemplate = (otp, validityLabel = '10 minutes
           </tr>
           <tr>
             <td style="background-color:#f4f7fa; padding:20px; text-align:center; font-size:12px; color:#888888;">
-              &copy; ${new Date().getFullYear()} RULOANS Distribution Services Pvt. Ltd.<br>
+              &copy; ${new Date().getFullYear()} Novostack<br>
               All rights reserved.
             </td>
           </tr>
@@ -1530,14 +1530,14 @@ let _smsRoundRobinCounter = 0;
 const _sendSMSVendor1 = async (templateId, templateText, formattedPhone, serviceType) => {
     const messageId = uuidv4();
     const encodedText = encodeURIComponent(templateText);
-    const url = `https://automate.nexgplatforms.com/api/v1/sentsms?username=${process.env.NEXGPL_USERNAME}&password=${process.env.NEXGPL_PASSWORD}&contactnumber=${formattedPhone}&entityid=1201159972577186406&header=${process.env.NEXGPL_FROM || 'RULOAN'}&message=${encodedText}&messageType=normal&messageid=${messageId}&serviceType=${serviceType}&templateid=${templateId}`;
+    const url = `https://automate.nexgplatforms.com/api/v1/sentsms?username=${process.env.NEXGPL_USERNAME}&password=${process.env.NEXGPL_PASSWORD}&contactnumber=${formattedPhone}&entityid=1201159972577186406&header=${process.env.NEXGPL_FROM}&message=${encodedText}&messageType=normal&messageid=${messageId}&serviceType=${serviceType}&templateid=${templateId}`;
     const response = await axios.request({ method: 'get', maxBodyLength: Infinity, url, headers: {} });
     return response.data;
 };
 
 const _sendSMSVendor2 = async (templateId, templateText, formattedPhone, serviceType) => {
     const encodedText = encodeURIComponent(templateText);
-    const url = `https://smsapi.chatbot.team/index.php/sms/urlsms?sender=${process.env.NEXGPL_FROM || 'RULOAN'}&numbers=${formattedPhone}&message=${encodedText}&messagetype=TXT&reponse=Y&apikey=${process.env.CHATBOT_TEAM_API_KEY}&templateid=${templateId}`;
+    const url = `https://smsapi.chatbot.team/index.php/sms/urlsms?sender=${process.env.NEXGPL_FROM}&numbers=${formattedPhone}&message=${encodedText}&messagetype=TXT&reponse=Y&apikey=${process.env.CHATBOT_TEAM_API_KEY}&templateid=${templateId}`;
     const response = await axios.request({ method: 'get', maxBodyLength: Infinity, url, headers: {} });
     return response.data;
 };

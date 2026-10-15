@@ -11139,7 +11139,7 @@ const sendDsaEmailAddressVerificationOtpForDsa = async (dsa_id, email) => {
         await sendEmailSmtp(
             {
                 to: em,
-                subject: "RULOANS — Verify your email",
+                subject: "Novostack — Verify your email",
                 body: dsaEmailVerificationOtpEmailTemplate(otp, "10 minutes")
             },
             true
@@ -11260,7 +11260,7 @@ const sendDsaEmailReverificationOtpForDsa = async (dsa_id, email) => {
         await sendEmailSmtp(
             {
                 to: em,
-                subject: "RULOANS — Re-verify your email",
+                subject: "Novostack — Re-verify your email",
                 body: dsaEmailVerificationOtpEmailTemplate(otp, "10 minutes")
             },
             true

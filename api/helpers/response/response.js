@@ -37,7 +37,7 @@ const logAPIResponse = (req, res, instance, status, message, code, data, duratio
   // Merge all data into one object for Winston JSON format
   const logData = {
     message: messageValue,
-    service: process.env.SERVICE_NAME || "ruloans-crm-nodejs",
+    service: process.env.SERVICE_NAME || "novostack-crm",
     version: process.env.SERVICE_VERSION || "1.0.0",
     environment: process.env.ENVIRONMENT || "development",
     requestId: requestId,

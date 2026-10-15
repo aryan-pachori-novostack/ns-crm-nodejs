@@ -1312,7 +1312,7 @@ const resetPasswordLinkUrl = async (req, res, next) => {
                 sendEmail({
                     to: user.userEmail,
                     subject: 'Reset Password Link ',
-                    body: `<html><body><h1>Here is your Password rest link for RuLoans .</h1><a href='${url}'>Reset Password</a></body></html>`
+                    body: `<html><body><h1>Here is your password reset link for Novostack.</h1><a href='${url}'>Reset Password</a></body></html>`
                 }, true)
                 ResHelper.apiResponse(res, true, "Reset Password Link Sent", 201, {}, "");
             }
@@ -1976,11 +1976,16 @@ const markAllasReadNotification = async (req, res) => {
     }
 };
 
+const isDevEnvironment = () =>
+    String(process.env.ENVIRONMENT || "").trim().toLowerCase() === "dev";
+
+const DEV_LOGIN_OTP = "6666";
+
 const otpTemplate = (otp) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ruloans CRM OTP Verification</title>
+<title>Novostack CRM OTP Verification</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f7fa;">
@@ -1989,14 +1994,14 @@ const otpTemplate = (otp) => `<!DOCTYPE html>
       <td align="center">
         <table cellpadding="0" cellspacing="0" width="100%" style="max-width:500px; background:#ffffff; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.08); overflow:hidden;">
           <tr>
-           <td align="center" style="background-color:#666CFF; padding:20px;">
+           <td align="center" style="background-color:#070b09; padding:20px;">
                 <table cellpadding="0" cellspacing="0" border="0" style="display:inline-block;">
                   <tr>
                     <td>
-                      <img src="https://crm.ruloans.com/images/logo.png" alt="Ruloans" width="40" style="display:block; vertical-align:middle;">
+                      <span style="display:inline-block; width:36px; height:36px; line-height:36px; border-radius:10px; background:#111827; color:#ffffff; font-size:18px; font-weight:700; font-family:Arial, sans-serif;">N</span>
                     </td>
                     <td style="padding-left:10px;">
-                      <span style="font-size:20px; font-weight:bold; color:#ffffff; font-family:Arial, sans-serif;">RULoans</span>
+                      <span style="font-size:20px; font-weight:bold; color:#ffffff; font-family:Arial, sans-serif;">Novostack</span>
                     </td>
                   </tr>
                 </table>
@@ -2007,14 +2012,14 @@ const otpTemplate = (otp) => `<!DOCTYPE html>
               <h1 style="margin:0; color:#333333; font-size:22px;">OTP Verification</h1>
               <p style="margin-top:10px; font-size:15px; color:#555555;">Please use the following OTP to complete your CRM verification. This OTP is valid for <strong>2 minutes</strong>.</p>
               <div style="margin:25px 0;">
-                <span style="font-size:28px; letter-spacing:10px; font-weight:bold; color:#004aad;">${otp}</span>
+                <span style="font-size:28px; letter-spacing:10px; font-weight:bold; color:#3A8A70;">${otp}</span>
               </div>
               <p style="font-size:14px; color:#777777; margin:0;">If you did not request this OTP, please ignore this email.</p>
             </td>
           </tr>
           <tr>
             <td style="background-color:#f4f7fa; padding:20px; text-align:center; font-size:12px; color:#888888;">
-              © ${new Date().getFullYear()} Ruloans Distribution Services Pvt. Ltd.<br>
+              © ${new Date().getFullYear()} Novostack<br>
               All Rights Reserved.
             </td>
           </tr>
@@ -2061,6 +2066,10 @@ const sendOTPToEmail = async (req, res) => {
             if (!ALLOWED_DOMAINS.some(domain => email.split("@")[1] == domain)) {
                 return ResHelper.apiResponse(res, false, "Email must be a registered corporate address", 400, {}, "");
             };
+
+            if (isDevEnvironment() && type === "crm_login_otp") {
+                return ResHelper.apiResponse(res, true, "Development OTP is 6666", 200, {}, "");
+            }
 
             const emailKeyBase = `${email}:${type}`;
             const otpKey = `otp:${emailKeyBase}`;
@@ -2128,8 +2137,8 @@ const sendOTPToEmail = async (req, res) => {
             // 8. Send email
             await sendEmailSmtp({
                 to: send_to_me ? `${email},${send_to_me}` : email,
-                subject: `Login OTP for RULoans CRM`,
-                text: `Here is your login OTP for RULoans CRM`,
+                subject: `Login OTP for Novostack CRM`,
+                text: `Here is your login OTP for Novostack CRM`,
                 body: otpTemplate(otp),
             }, true);
 
@@ -2148,6 +2157,13 @@ const verifyOTPEmail = async ({ otp, email }) => {
         if (!ALLOWED_DOMAINS.some(domain => email.split("@")[1] == domain)) {
             return { status: false, code: 400, message: "Email must be a registered corporate address" };
         };
+
+        if (isDevEnvironment()) {
+            if (String(otp || "").trim() === DEV_LOGIN_OTP) {
+                return { status: true };
+            }
+            return { status: false, code: 400, message: "Invalid OTP" };
+        }
 
         const emailKeyBase = `${email}:crm_login_otp`;
         const otpHashKey = `otp_hash:${emailKeyBase}`;
@@ -2174,10 +2190,7 @@ const verifyOTPEmail = async ({ otp, email }) => {
         };
 
         // 5. Compare hashes
-        let incomingHash = crypto.createHash('sha256').update(otp).digest('hex');
-        if (process.env.ENVIRONMENT == "dev") {
-            incomingHash = storedHash;
-        };
+        const incomingHash = crypto.createHash('sha256').update(otp).digest('hex');
         if (incomingHash == storedHash) {
             // Success — cleanup
             // await client.delAsync(otpHashKey);

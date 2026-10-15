@@ -203,7 +203,7 @@ exports.erpEmailTemplate = ({ leads, summary, subject, successAttachmentUrl, fai
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="font-size:11px; color:#6b7280; line-height:1.5;">
-                                        <strong style="color:#111827;">RuLoans CRM</strong> - ERP Submission Report<br>
+                                        <strong style="color:#111827;">Novostack CRM</strong> - ERP Submission Report<br>
                                         This is an automated notification. Please do not reply to this email.
                                     </td>
                                 </tr>

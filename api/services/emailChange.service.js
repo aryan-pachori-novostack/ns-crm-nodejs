@@ -26,33 +26,20 @@ const formatSecondsRemaining = (untilDate) => {
     return sec;
 };
 
-/** CRM frontend page (link in admin verification email). CRM_VERIFY_EMAIL_URL overrides; else ENVIRONMENT. */
+/** CRM frontend page (link in admin verification email). */
 const getCrmVerifyEmailBaseUrl = () => {
     if (process.env.CRM_VERIFY_EMAIL_URL) {
         return String(process.env.CRM_VERIFY_EMAIL_URL).replace(/\/$/, "");
     }
-    const env = String(process.env.ENVIRONMENT || "dev").trim().toLowerCase();
-    if (env === "prod" || env === "production") {
-        return "https://crm.ruloans.com/verify-email";
+    if (process.env.CRM_URL) {
+        return `${String(process.env.CRM_URL).replace(/\/$/, "")}/verify-email`;
     }
-    if (env === "uat") {
-        return "https://crm-uat.ruloans.com/verify-email";
-    }
-    return "https://crm-dev.ruloans.com/verify-email";
+    return "";
 };
 
 const getCrmApiHost = () => {
-    if (process.env.CRM_API_BASE_URL) {
-        return String(process.env.CRM_API_BASE_URL).replace(/\/$/, "");
-    }
-    const env = String(process.env.ENVIRONMENT || "dev").trim().toLowerCase();
-    if (env === "prod" || env === "production") {
-        return "https://api.ruloans.com/crm";
-    }
-    if (env === "uat") {
-        return "https://uat-api.ruloans.com/crm";
-    }
-    return "https://dev-api.ruloans.com/crm";
+    if (!process.env.CRM_API_BASE_URL) return "";
+    return String(process.env.CRM_API_BASE_URL).replace(/\/$/, "");
 };
 
 /** API endpoint the CRM /verify-email page calls (CRM_VERIFY_EMAIL_API_URL overrides). */
@@ -195,7 +182,7 @@ const sendDevGchatNotification = async ({ to, subject, body }) => {
 };
 
 const sendOtpEmail = async (to, otp) => {
-    const subject = "Email change OTP for RULoans CRM";
+    const subject = "Email change OTP for Novostack CRM";
     if (isDevEnvironment()) {
         await sendDevGchatNotification({
             to,
@@ -208,7 +195,7 @@ const sendOtpEmail = async (to, otp) => {
         {
             to,
             subject,
-            text: "Here is your email change OTP for RULoans CRM",
+            text: "Here is your email change OTP for Novostack CRM",
             body: crmLoginOtpEmailTemplate(otp, `${OTP_EXPIRES_MINUTES} minutes`)
         },
         true
@@ -445,9 +432,9 @@ const adminVerificationEmailBody = (verifyUrl) => `<!DOCTYPE html>
   <table align="center" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f7fa;padding:30px 0;">
     <tr><td align="center">
       <table width="100%" style="max-width:520px;background:#fff;border-radius:10px;overflow:hidden;">
-        <tr><td style="background:#666CFF;padding:20px;text-align:center;color:#fff;font-size:20px;font-weight:bold;">RULOANS CRM</td></tr>
+        <tr><td style="background:#111827;padding:20px;text-align:center;color:#fff;font-size:20px;font-weight:bold;">Novostack CRM</td></tr>
         <tr><td style="padding:28px;color:#333;font-size:15px;line-height:1.6;">
-          <p>Your email address on Ruloans CRM was updated by an administrator.</p>
+          <p>Your email address on Novostack CRM was updated by an administrator.</p>
           <p>Please verify your new email by clicking the button below. This link expires in <strong>24 hours</strong>.</p>
           <p style="text-align:center;margin:28px 0;">
             <a href="${verifyUrl}" style="background:#004aad;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;">Verify email</a>
@@ -461,7 +448,7 @@ const adminVerificationEmailBody = (verifyUrl) => `<!DOCTYPE html>
 </html>`;
 
 const sendAdminVerificationEmail = async (to, verifyUrl) => {
-    const subject = "Verify your new email — Ruloans CRM";
+    const subject = "Verify your new email — Novostack CRM";
     if (isDevEnvironment()) {
         await sendDevGchatNotification({
             to,
@@ -474,7 +461,7 @@ const sendAdminVerificationEmail = async (to, verifyUrl) => {
         {
             to,
             subject,
-            text: "Please verify your new email address for RULoans CRM",
+            text: "Please verify your new email address for Novostack CRM",
             body: adminVerificationEmailBody(verifyUrl)
         },
         true

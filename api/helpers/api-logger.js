@@ -94,7 +94,7 @@ class APILogger {
       "severity_text": res.statusCode >= 400 ? "ERROR" : "INFO",
       "message": `${methodName} API call`,
       "service": {
-        "name": "ruloans-crm-nodejs",
+        "name": process.env.SERVICE_NAME || "novostack-crm",
         "version": "1.0.0",
         "environment": process.env.ENVIRONMENT || "development"
       },

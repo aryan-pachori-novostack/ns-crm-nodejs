@@ -20,7 +20,7 @@ const loginCEO = Joi.object({
 const loginCEOVerifyOtp = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required().min(2).max(50),
-  otp: Joi.string().required().min(6).max(6),
+  otp: Joi.string().required().min(4).max(6),
   rememberDevice: Joi.alternatives().try(Joi.boolean(), Joi.string().valid("true", "false", "1", "0")).optional(),
 });
 
@@ -30,7 +30,7 @@ const addUser = Joi.object({
     .pattern(/^[a-zA-Z0-9._%+-]+@(ruloans\.com|ext\.ruloans\.com|novostack\.com)$/)
     .required()
     .messages({
-      'string.pattern.base': 'Email must be from ruloans.com domain.',
+      'string.pattern.base': 'Email must be from an allowed company domain.',
       'string.email': 'Please enter a valid email address.',
       'any.required': 'Email is required.'
     }),
@@ -59,7 +59,7 @@ const updateUser = Joi.object({
     .pattern(/^[a-zA-Z0-9._%+-]+@(ruloans\.com|ext\.ruloans\.com|novostack\.com)$/)
     .required()
     .messages({
-      'string.pattern.base': 'Email must be from ruloans.com domain.',
+      'string.pattern.base': 'Email must be from an allowed company domain.',
       'string.email': 'Please enter a valid email address.',
       'any.required': 'Email is required.'
     }),

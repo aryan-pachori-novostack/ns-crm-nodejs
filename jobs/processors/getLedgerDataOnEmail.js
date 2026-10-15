@@ -37,7 +37,7 @@ async function getLedgerData(id, page_index, user) {
       maxBodyLength: Infinity,
       url: `${process.env.MS_URL}/api/fresh-lead/save-ledger`,
       headers: {
-        'api-key': 'b0.khJGugUKsy9-jt#ruloans',
+        'api-key': process.env.AUTH_KEY_RULOANS_BANK_CLAIM,
         'Content-Type': 'application/json'
       },
       data: data
@@ -66,7 +66,7 @@ async function getPaymentData(id, page_index, user) {
       maxBodyLength: Infinity,
       url: `${process.env.MS_URL}/api/fresh-lead/send-vendor-payment`,
       headers: {
-        'api-key': 'b0.khJGugUKsy9-jt#ruloans',
+        'api-key': process.env.AUTH_KEY_RULOANS_BANK_CLAIM,
         'Content-Type': 'application/json'
       },
       data: data

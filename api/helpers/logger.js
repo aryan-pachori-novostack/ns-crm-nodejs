@@ -80,7 +80,7 @@ const createWrappedLogger = () => {
 
       const logData = {
         message: logMessage,
-        service: process.env.SERVICE_NAME || 'ruloans-crm-nodejs',
+        service: process.env.SERVICE_NAME || 'novostack-crm',
         version: process.env.SERVICE_VERSION || '1.0.0',
         environment: process.env.ENVIRONMENT || 'development',
         requestId,

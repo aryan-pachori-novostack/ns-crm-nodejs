@@ -1,8 +1,8 @@
 const nodemailer = require("nodemailer");
 const { logger } = require("../api/helpers/logger");
 
-const misEmailUser = process.env.MIS_INBOUND_EMAIL || "ruconnect.mis@ruloans.com";
-const misEmailPass = process.env.MIS_INBOUND_EMAIL_PASSWORD || "Vp@Rc@0926**";
+const misEmailUser = process.env.MIS_INBOUND_EMAIL;
+const misEmailPass = process.env.MIS_INBOUND_EMAIL_PASSWORD;
 
 const misTransporter = nodemailer.createTransport({
     service: "gmail",
@@ -168,7 +168,7 @@ function renderLenderFailureEmailTemplate({ lenderName, fileName, successCount, 
             ` : ""}
 
             <p style="font-size: 12px; color: #888; margin-top: 30px; border-top: 1px solid #eee; padding-top: 10px;">
-                This is an automated notification sent by Ruloans CRM MIS Processing Engine. Quarantined records are retained for the configured duration.
+                This is an automated notification sent by Novostack CRM MIS Processing Engine. Quarantined records are retained for the configured duration.
             </p>
         </div>
     `;
@@ -194,7 +194,7 @@ async function sendLenderNotificationEmail(product, fileName, successCount, fail
         });
 
         const mailOptions = {
-            from: `"Ruloans MIS Engine" <${misEmailUser}>`,
+            from: `"Novostack MIS Engine" <${misEmailUser}>`,
             to: config.emails.join(", "),
             subject: `[ACTION REQUIRED] MIS Upload Report for ${lenderName} - ${failureCount} Failures`,
             html,

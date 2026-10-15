@@ -67,7 +67,7 @@ const buildApproverEmail = ({ approverName, requesterName, actionLabel, payload,
       </a>
     </p>
     <p style="color: #6b7280; font-size: 13px; margin-top: 24px;">
-      This is an automated email from the Ruloans CRM system.
+      This is an automated email from the Novostack CRM system.
     </p>
   </div>
   `;
@@ -86,7 +86,7 @@ const buildRequesterNotificationEmail = ({ requesterName, actionLabel, status, r
     <p>Your approval request <strong>#${approvalId}</strong> for <strong>${actionLabel}</strong> has been <strong>${status}</strong> by <strong>${approverName || 'an approver'}</strong>.</p>
     ${remarks ? `<p><strong>Remarks:</strong> ${remarks}</p>` : ''}
     <p style="color: #6b7280; font-size: 13px; margin-top: 24px;">
-      This is an automated email from the Ruloans CRM system.
+      This is an automated email from the Novostack CRM system.
     </p>
   </div>
   `;
@@ -202,7 +202,7 @@ const requireApproval = (actionKey, actionLabel) => {
       });
 
       // 9. Send email to approver
-      const frontendBase = process.env.ENVIRONMENT === "dev" ? 'https://crm-dev.ruloans.com/' : 'https://crm.ruloans.com/';
+      const frontendBase = process.env.CRM_URL || '';
       const approvalPageUrl = `${frontendBase}/approvals?id=${approvalId}`;
 
       try {
