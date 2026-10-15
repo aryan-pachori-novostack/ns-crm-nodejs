@@ -1,0 +1,263 @@
+Internal ID,Bank / Institution (Customer),Product (Item),Product (Parent Item),Product Group,Invoice Remark,Average Achievement
+101,Aadhar Housing Finance Limited,HML,,,,1.00%
+102,Aadhar Housing Finance Limited,LAP,,,,1.20%
+169,Adani Capital Private Limited,LAP,,,,0.46%
+168,Adani Capital Private Limited,BIL,,,,2.50%
+405,Adani Housing Finance Private Limited,LAP,,,,0.60%
+404,Adani Housing Finance Private Limited,HML,,,,0.60%
+172,Aditya Birla Finance Limited,PIL,,,,3.40%
+677,Aditya Birla Finance Limited,LAP STSL,LAP,,,2.30%
+739,Aditya Birla Finance Limited,BIL STUL,,,,3.65%
+171,Aditya Birla Finance Limited,LAP,,,,1.50%
+703,Aditya Birla Finance Limited,PIL OD,,,,2.90%
+170,Aditya Birla Finance Limited,BIL,,,,3.60%
+635,Aditya Birla Housing Finance Limited,Insurance LPP,Insurance LPP,Additional,,1.00%
+717,Aditya Birla Housing Finance Limited,LAP,LAP,,,1.50%
+634,Aditya Birla Housing Finance Limited,HML,HML,Secured,,1.00%
+174,Ambit Finvest Private Limited,LAP,,,,1.00%
+173,Ambit Finvest Private Limited,BIL,,,,2.50%
+112,Anand Rathi Global Finance Limited,LAP,,,,1.50%
+746,Arka Fincap Limited,LAP,,,,2.25%
+653,Ashv Finance Limited,BIL,BIL,Unsecured,,3.00%
+113,Au Small Finance Bank Limited,LAP,,,,1.10%
+679,Au Small Finance Bank Limited,HML,HML,Secured,,1.10%
+687,Avanse Financial Services Limited,Education Loan,,,,1.00%
+165,Avanse Financial Services Limited,LAP,,,,1.40%
+637,Axis Bank Limited,HML,HML,Secured,,1.00%
+636,Axis Bank Limited,Asha HML,HML,Secured,,1.25%
+147,Axis Bank Limited,PIL,PIL,Unsecured,,3.05%
+145,Axis Bank Limited,LAP,,,,1.00%
+144,Axis Bank Limited,BIL,,,,3.40%
+732,Axis Bank Limited,New Car Loan,,,,1.69%
+702,Axis Bank Limited,Insurance LPP,,,,5.00%
+708,Axis Bank Limited,Education Loan,,,,1.50%
+176,Axis Finance Limited,HML,,,,1.00%
+175,Axis Finance Limited,BIL,,,,2.90%
+178,Axis Finance Limited,PIL,,,,2.90%
+177,Axis Finance Limited,LAP,,,,1.30%
+104,Bajaj Finance Limited,PIL,PIL,,,2.93%
+614,Bajaj Finance Limited,BIL Emrg,BIL,Unsecured,,3.00%
+658,Bajaj Finance Limited,BIL Sec,BIL Sec,Unsecured,,2.20%
+657,Bajaj Finance Limited,BIL,BIL,Unsecured,,3.20%
+656,Bajaj Finance Limited,PIL OD,PIL OD,Unsecured,,2.93%
+103,Bajaj Finance Limited,LAP,,,,1.25%
+683,Bajaj Housing Finance Limited,HML,HML,Secured,,1.00%
+731,Bajaj Housing Finance Limited,LAP,,,,1.00%
+676,Bandhan Bank Limited,PIL Govt,PIL Govt,Unsecured,,2.75%
+615,Bandhan Bank Limited,HML,HML,Secured,,1.06%
+675,Bandhan Bank Limited,PIL,PIL,Unsecured,,2.65%
+674,Bandhan Bank Limited,LAP,LAP,Secured,,1.00%
+157,Bank of Baroda,HML,,,,0.65%
+158,Bank of Baroda,LAP,,,,0.80%
+689,Bank of India,HML,,,,0.90%
+114,Bank of Maharashtra,HML,,,,0.40%
+150,Blue Jay Finlease Limited,BIL,,,,2.00%
+115,Capital India Finance Limited,LAP,,,,1.06%
+179,Capital India Home Loans Limited,HML,HML,Secured,,1.00%
+180,Capital India Home Loans Limited,LAP,,,,1.27%
+148,Capri Global Capital Limited,LAP,,,,0.50%
+696,Capri Global Capital Limited,Term Loan,LAP,Secured,,1.25%
+725,Capri Global Capital Limited,HML,HML,,,1.00%
+716,Capri Global Housing Finance Limited,LAP,LAP,,,1.25%
+704,Capri Global Housing Finance Limited,HML,HML,Secured,,1.00%
+162,Central Bank of India,HML,HML,Secured,,1.00%
+163,Central Bank of India,LAP,,,,0.90%
+644,Cholamandalam Investment and Finance Company Limited,BIL,BIL,Unsecured,,3.50%
+119,Cholamandalam Investment and Finance Company Limited,PIL,,,,3.50%
+117,Cholamandalam Investment and Finance Company Limited,HML,,,,1.00%
+118,Cholamandalam Investment and Finance Company Limited,LAP,,,,1.00%
+638,Cholamandalam Investment and Finance Company Limited,BIL OD,BIL,Unsecured,,3.50%
+649,Cholamandalam Investment and Finance Company Limited,SME LAP,SME LAP,Secured,,1.25%
+408,Clix Capital Services Private Limited,PIL,,,,3.00%
+406,Clix Capital Services Private Limited,BIL,,,,3.50%
+407,Clix Capital Services Private Limited,LAP,,,,0.90%
+410,Clix Housing Finance Private Limited,LAP,,,,1.50%
+409,Clix Housing Finance Private Limited,HML,,,,1.00%
+166,Datasigns Technologies Private Limited,PIL,,,,3.50%
+152,DBS BANK LIMITED,LAP,,,,1.75%
+619,DBS BANK LIMITED,PIL,PIL,Unsecured,,3.25%
+151,DBS BANK LIMITED,HML,,,,0.75%
+126,DCB Bank Limited,PIL,,,,2.00%
+124,DCB Bank Limited,LAP STSL,,,,0.75%
+120,DCB Bank Limited,HML,,,,1.00%
+123,DCB Bank Limited,LAP,,,,1.50%
+121,DCB Bank Limited,HML STSL,,,,0.50%
+127,Deutsche Bank AG,BIL,,,,2.50%
+129,Deutsche Bank AG,LAP,,,,1.75%
+128,Deutsche Bank AG,HML,,,,1.10%
+105,Digikredit Finance Private Limited,BIL,,,,3.00%
+106,Digikredit Finance Private Limited,LAP,,,,0.50%
+164,Ditya Finance Pvt Ltd,BIL,,,,3.50%
+181,DMI Housing Finance Private Limited,HML,,,,0.90%
+182,DMI Housing Finance Private Limited,LAP,,,,1.25%
+130,Easy Home Finance Limited,HML,,,,1.27%
+737,Easy Home Finance Limited,LAP,LAP,Secured,,1.10%
+183,ECL Finance Limited,BIL,,,,3.50%
+184,ECL Finance Limited,PIL,,,,3.00%
+108,Edelweiss Housing Finance Limited,LAP,,,,1.50%
+107,Edelweiss Housing Finance Limited,HML,,,,1.00%
+733,Edelweiss Retail Finance Limited,BIL,,,,3.50%
+671,Equitas Small Finance Bank Limited,HML,HML,Secured,,0.65%
+661,Fairassets Technologies India Private Limited,Digital PIL,Digital PIL,Unsecured,,2.50%
+744,Fairassets Technologies India Private Limited,BIL,BIL,Unsecured,,3.00%
+131,Fed Bank Financial Services Limited,BIL,,,,3.00%
+134,Fed Bank Financial Services Limited,PIL,,,,2.00%
+132,Fed Bank Financial Services Limited,HML,,,,1.00%
+133,Fed Bank Financial Services Limited,LAP,,,,1.50%
+620,Finnable Technologies Private Limited,PIL,PIL,Unsecured,,3.00%
+187,Finplex Technologies Private Limited,BIL,,,,3.00%
+693,Godrej Finance Limited,BIL,BIL,Unsecured,,3.50%
+738,Godrej Housing Finance Limited,LAP,,,,1.50%
+722,Godrej Housing Finance Limited,HML,HML,Secured,,1.50%
+167,Greenizon Agritech Consultancy Private Limited,BIL,,,,2.00%
+192,HDB Financial Services Limited,LAP,,,,1.00%
+137,HDFC Bank Limited,BIL,,,,3.50%
+139,HDFC Bank Limited,LAP,,,,1.50%
+740,HDFC Bank Limited,PIL Emrg,,,,3.35%
+138,HDFC Bank Limited,HML,,,,1.00%
+140,HDFC Bank Limited,PIL,PIL,Unsecured,,3.10%
+741,HDFC Bank Limited,PIL Emrg Govt,,,,3.85%
+302,HDFC Credila Financial Services Limited,Education Loan,PIL,Unsecured,Centrally,1.00%
+194,Hero Fincorp Limited,LAP,,,,1.50%
+193,Hero Fincorp Limited,BIL,,,,3.25%
+195,Hero Fincorp Limited,PIL,,,,3.25%
+413,Hero Housing Finance Limited,LAP,,,,1.35%
+412,Hero Housing Finance Limited,HML,,,,1.00%
+197,Hinduja Housing Finance Limited,LAP,,,,0.75%
+196,Hinduja Housing Finance Limited,HML,,,,0.60%
+159,Housing Development Finance Corporation Limited,HML,,,,1.00%
+160,Housing Development Finance Corporation Limited,LAP,,,,1.30%
+199,ICICI Bank Limited,LAP,,,,0.90%
+745,ICICI Bank Limited,DOD,DOD,Secured,,1.20%
+699,ICICI Bank Limited,PIL Emrg,PIL Emrg,,,4.01%
+668,ICICI Bank Limited,HML,HML,Secured,,0.70%
+669,ICICI Bank Limited,Insurance LPP,Insurance LPP,Secured,,4.00%
+200,ICICI Bank Limited,PIL,,,,3.25%
+198,ICICI Bank Limited,BIL,,,,3.60%
+698,ICICI Home Finance Co. Limited,Insurance LPP,,,,3.25%
+109,ICICI Home Finance Co. Limited,HML,,,,1.00%
+111,ICICI Home Finance Co. Limited,LAP,,,,1.50%
+204,IDFC First Bank Limited,PIL,,,,3.25%
+201,IDFC First Bank Limited,BIL,,,,3.40%
+203,IDFC First Bank Limited,LAP,,,,1.50%
+202,IDFC First Bank Limited,HML,HML,Secured,,1.25%
+659,IDFC First Bank Limited,BIL OD,BIL,Secured,,2.50%
+685,IIFL Finance Limited,BIL,,,,3.50%
+663,IIFL Finance Limited,PIL,PIL,Unsecured,,3.50%
+415,IIFL Home Finance Limited,LAP,,,,1.40%
+414,IIFL Home Finance Limited,HML,,,,0.80%
+416,Incred Financial Services Limited,LAP,,,,100.00%
+417,Incred Financial Services Limited,PIL,,,,4.00%
+143,India Shelter Finance Corporation Limited,HML,,,,0.65%
+161,Indiabulls Commercial Credit Limited,LAP,,,,1.15%
+205,Indiabulls Housing Finance Limited,LAP,,,,1.15%
+648,Indiabulls Housing Finance Limited,HML,HML,Secured,,0.80%
+206,Indifi Technologies Private Limited,BIL,BIL,Unsecured,,2.50%
+207,Indostar Capital Finance Limited,LAP,,,,1.50%
+749,Indostar Home Finance Private Limited,HML,HML,,,0.75%
+153,Indusind Bank Limited,BIL,BIL,Unsecured,,2.75%
+680,Indusind Bank Limited,LAP,,,,1.50%
+155,Indusind Bank Limited,PIL,,,,3.25%
+660,Indusind Bank Limited,PIL Cat C,PIL,Unsecured,,2.10%
+154,Indusind Bank Limited,HML,,,,1.00%
+651,Jana Small Finance Bank Limited,HML,HML,Secured,,1.20%
+208,Jana Small Finance Bank Limited,LAP,,,,1.50%
+729,Karur Vysya Bank Limited,HML,HML,Secured,,1.00%
+616,Kisetsu Saison Finance (India) Private Limited,BIL,BIL,Unsecured,,3.25%
+692,Kisetsu Saison Finance (India) Private Limited,PIL,PIL,Unsecured,,3.00%
+621,KKR INDIA FINANCIAL SERVICES LIMITED,PIL,PIL,Unsecured,,4.00%
+504,Kotak Mahindra Bank Limited,HML,,,,1.00%
+670,Kotak Mahindra Bank Limited,Insurance LPP,Insurance LPP,Secured,,10.00%
+721,Kotak Mahindra Bank Limited,PIL,PIL,,,3.24%
+303,Kotak Mahindra Bank Limited,LAP,,,,1.50%
+707,Kotak Mahindra Bank Limited,BIL,BIL,Unsecured,,3.50%
+505,Kotak Mahindra Bank Limited,Insurance General,,,,0.00%
+647,L and T Finance Limited,LAP,LAP,Secured,,1.50%
+142,L and T Finance Limited,HML,HML,Secured,,1.00%
+141,L and T Finance Limited,BIL,,,,3.50%
+605,L and T Finance Limited,Digital PIL,PIL,,,3.00%
+714,L and T Finance Limited,PIL,PIL,,,3.00%
+1,L and T Housing Finance Limited,Affordable Housing,,Secured,,0.50%
+156,L and T Housing Finance Limited,Doctor Loan,,,,4.00%
+606,Lendingkart Finance Limited,BIL,BIL,,,3.10%
+662,Mahindra And Mahindra Financial Services Limited,BIL,BIL,Unsecured,,3.00%
+715,Mahindra And Mahindra Financial Services Limited,LAP,LAP,Secured,,2.00%
+694,MAS Financial Services Limited,BIL,BIL,Unsecured,,3.00%
+673,MAS Financial Services Limited,PIL,PIL,Unsecured,,3.00%
+724,Motilal Oswal Home Finance Limited,LAP,LAP,Secured,Locally,1.50%
+723,Motilal Oswal Home Finance Limited,HML,HML,Secured,Locally,1.50%
+623,Muthoot Finance Limited,PIL,PIL,Secured,,3.00%
+684,Muthoot Finance Limited,HML,HML,Secured,,1.00%
+622,MyLoanCare Ventures Private Limited,PIL,PIL,Unsecured,,3.50%
+632,Nehat Tech Solutions Private Limited,PIL,PIL,Unsecured,,1.00%
+607,NeoGrowth Credit Private Limited,BIL,BIL,,,2.20%
+641,PaySense Services India Private Limited,PIL,Digital PIL,Unsecured,,5.25%
+642,PaySense Services India Private Limited,Digital PIL,PIL,Unsecured,,5.00%
+631,Piramal Capital And Housing Finance Limited,PIL,PIL,Unsecured,,3.50%
+734,Piramal Capital And Housing Finance Limited,Used Car Loan,Used Car Loan,Unsecured,,3.39%
+713,Piramal Capital And Housing Finance Limited,Affordable Housing,Affordable Housing,Secured,,1.00%
+652,Piramal Capital And Housing Finance Limited,BIL,BIL,Unsecured,,3.50%
+650,Piramal Capital And Housing Finance Limited,LAP,LAP,Secured,,1.50%
+630,Piramal Capital And Housing Finance Limited,HML,HML,Secured,,1.00%
+690,PNB Housing Finance Limited,LAP,LAP,Secured,,1.50%
+742,PNB Housing Finance Limited,HML,HML,Secured,,1.00%
+618,Poonawalla Fincorp Limited,BIL,BIL,Unsecured,,4.00%
+720,Poonawalla Fincorp Limited,PIL,PIL,,,4.00%
+695,Poonawalla Housing Finance Limited,HML,,,,0.80%
+712,Profectus Capital Private Limited,LAP,,,,1.50%
+718,RBL Bank Limited,HML,HML,,,1.25%
+643,Repco Home Finance Limited,HML,HML,Secured,,1.00%
+608,Shriram City Union Finance Limited,BIL,BIL,,,3.50%
+691,Shriram City Union Finance Limited,LAP,,,,1.50%
+609,Shriram Finance Limited,BIL,BIL,Unsecured,,3.50%
+633,Shriram Housing Finance Limited,HML,HML,Secured,,1.00%
+686,Shriram Housing Finance Limited,LAP,,,,1.50%
+188,SMFG India Credit Company Limited,BIL,,,,3.00%
+190,SMFG India Credit Company Limited,PIL Emrg,PIL,,,3.00%
+191,SMFG India Credit Company Limited,PIL,PIL,,,3.50%
+189,SMFG India Credit Company Limited,LAP,,,,1.50%
+135,SMFG India Home Finance Company Limited,HML,HML,Secured,,1.25%
+136,SMFG India Home Finance Company Limited,LAP,,,,1.00%
+705,Standard Chartered Bank,LAP,LAP,Secured,,1.75%
+728,Standard Chartered Bank,BWC,Working Capital,Other Secured,,0.75%
+604,Standard Chartered Bank,PIL,PIL,Unsecured,,3.35%
+664,Standard Chartered Bank,BIL,BIL,Unsecured,,3.50%
+617,Standard Chartered Bank,HML,HML,Secured,,1.00%
+706,Standard Chartered Bank,SME LAP,LAP,Secured,,1.75%
+711,Standard Chartered Capital Limited,LAP,,,,1.50%
+730,Sundaram Home Finance Limited,HML,HML,Secured,,1.00%
+697,Sundaram Home Finance Limited,LAP,LAP,,,1.50%
+750,Sundram Home Finance Limited,HML,HML,,,1.00%
+672,Suryoday Small Finance Bank Limited,HML,HML,Secured,,0.60%
+735,SVC CO-OPERATIVE BANK LTD,HML,HML,Secured,,1.00%
+748,SVC CO-OPERATIVE BANK LTD,LAP,,,,1.50%
+624,Tata Capital Financial Services Limited,PIL,PIL,Unsecured,,3.10%
+625,Tata Capital Financial Services Limited,PIL OD,PIL,Unsecured,,2.75%
+611,Tata Capital Financial Services Limited,BIL OD,BIL,Unsecured,,2.75%
+681,Tata Capital Financial Services Limited,LAP,,,,1.50%
+736,Tata Capital Financial Services Limited,Used Car Loan,Used Car Loan,Unsecured,,3.41%
+610,Tata Capital Financial Services Limited,BIL,BIL,Unsecured,,3.50%
+682,Tata Capital Housing Finance Limited,LAP,,,,1.50%
+646,Tata Capital Housing Finance Limited,HML,HML,Secured,,1.00%
+186,The Federal Bank Limited,LAP,,,,0.00%
+185,The Federal Bank Limited,HML,,,,1.00%
+654,The Hongkong & Shanghai Banking Corporation,HML,HML,Secured,,1.00%
+747,TVS Credit Services Limited,BIL,,,,3.00%
+726,UBI Services Limited,HML,HML,Secured,,0.50%
+612,Ugro Capital Limited,BIL,BIL,Unsecured,,3.25%
+719,Ugro Capital Limited,LAP,LAP,,,2.50%
+743,Ujjivan Small Finance Bank Limited,LAP,,,,1.50%
+688,Ujjivan Small Finance Bank Limited,HML,,,,0.60%
+613,Unity Small Finance Bank Limited,BIL,BIL,,,3.25%
+655,Upwards Fintech Services Private Limited,Digital PIL,PIL,Unsecured,,4.00%
+666,Vastu Housing Finance Corporation Limited,HML,HML,Secured,,1.00%
+667,Vastu Housing Finance Corporation Limited,LAP,LAP,Secured,,1.25%
+626,Vistaar Financial Services Private Limited,LAP,LAP,Secured,,1.00%
+301,Yantra Test Bank,BIL,,,,1.50%
+629,Yes Bank Limited,PIL Silver,PIL,Unsecured,,2.25%
+665,Yes Bank Limited,BIL,BIL,Unsecured,,3.40%
+701,Yes Bank Limited,DOD,,,,0.85%
+628,Yes Bank Limited,PIL Govt,PIL,Unsecured,,4.25%
+627,Yes Bank Limited,PIL,PIL,Unsecured,,3.25%
+709,Yes Bank Limited,HML,,,,1.00%
+700,Yes Bank Limited,LAP,,,,1.50%

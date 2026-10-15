@@ -1,0 +1,29 @@
+<style>
+  .page-break {
+    page-break-inside: avoid;
+  }
+</style>
+
+<table style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr style="border: 1px solid black;height:17px">
+      <th style="border: 1px solid black; padding: 8px;">DSA</th>
+      <th style="border: 1px solid black; padding: 8px;">FTD (<%= prevDate %>)</th>
+      <th style="border: 1px solid black; padding: 8px;">MTD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (let i = 0; i < data.length; i++) { %>
+      <tr style="border: 1px solid black;" class="page-break">
+        <% if (data[i].level === 1) { %>
+          <td style="border: 1px solid black; padding: 8px;">Grand Total</td>
+        <% } else { %>
+          <td style="border: 1px solid black; padding: 8px;"><%= data[i].dsa %></td>
+        <% } %>
+       
+        <td style="border: 1px solid black; padding: 8px;"><%= data[i].total_disbursed_daily %></td>
+        <td style="border: 1px solid black; padding: 8px;"><%= data[i].total_disbursed_amount %></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>

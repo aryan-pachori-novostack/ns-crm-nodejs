@@ -1,0 +1,15 @@
+version: '3'
+services:
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.7.0  # Specify your desired Filebeat version
+    container_name: filebeat
+    user: root  # Run as root to avoid permission issues with host mounts
+    volumes:
+      # Mount the Filebeat configuration from the local filebeat folder into the container (read-only)
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      # Mount the logs directory from the parent folder into the container (read-only)
+      - ../logs:/logs:ro
+      # Mount the CA certificate. Adjust the host path if your certificate is elsewhere.
+      # For example, if the certificate is in the filebeat folder, use: ./ca.crt:/usr/share/filebeat/ca.crt:ro
+      - ./ca.crt:/usr/share/filebeat/ca.crt:ro
+    command: ["filebeat", "-e", "-strict.perms=false"]

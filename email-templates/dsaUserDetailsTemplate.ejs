@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <table border='1' style="margin: auto;border-collapse:collapse">
+    <thead>
+      <tr>
+        <th class="primary" scope="col">FIELD NAME</th>
+        <th class="primary" scope="col">COLUMN NAME</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>mobile number</th>
+        <td><%= dsa.mobile_number %></td>
+      </tr>
+      <tr>
+        <td>salutation</td>
+        <td><%= dsa.salutation %></td>
+      </tr>
+      <tr>
+        <td>first name </td>
+        <td><%= dsa.first_name %></td>
+      </tr>
+      <tr>
+        <td>middle name </td>
+        <td> <%= dsa.middle_name %></td>
+      </tr>
+      <tr>
+        <td> last name</td>
+        <td> <%= dsa.last_name %></td>
+      </tr>
+      <tr>
+        <td>email </td>
+        <td><%= dsa.email_address %></td>
+      </tr>
+      <tr>
+        <td>Company name</td>
+        <td> <%= dsa.company_name %></td>
+      </tr>
+      <tr>
+        <td>DOB </td>
+        <td> <%= dsa.date_of_birth %></td>
+      </tr>
+      <tr>
+        <td> partner code</td>
+        <td> <%= dsa.partner_code %></td>
+      </tr>
+      <tr>
+        <td>house/flat number </td>
+        <td> <%= dsa.home_address_house_number %></td>
+      </tr>
+      <tr>
+        <td> road/area</td>
+        <td><%= dsa.home_address_area %></td>
+      </tr>
+      <tr>
+        <td>pincode </td>
+        <td><%= dsa.home_address_pincode %></td>
+      </tr>
+      <tr>
+        <td> city</td>
+        <td> <%= dsa.home_address_city %></td>
+      </tr>
+      <tr>
+        <td>office house/flat number (optional)</td>
+        <td> <%= dsa.office_address_house_number %></td>
+      </tr>
+      <tr>
+        <td>office road/area (optional) </td>
+        <td><%= dsa.office_address_area %></td>
+      </tr>
+      <tr>
+        <td> office pincode (optional</td>
+        <td><%= dsa.office_address_pincode %> </td>
+      </tr>
+      <tr>
+        <td> office city (optional)</td>
+        <td><%= dsa.office_address_city %> </td>
+      </tr>
+      <tr>
+        <td>office state (optional)</td>
+        <td> <%= dsa.office_address_state %></td>
+      </tr>
+      <tr>
+        <td> Address proof Number</td>
+        <td><%= dsa.address_proof_number %></td>
+      </tr>
+      <tr>
+        <td>PAN </td>
+        <td><%= dsa.pan_number %></td>
+      </tr>
+    </tbody>
+
+  </table>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+version: "3.2"
+
+services:
+  app:
+    image: ruloanscrm-backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ruloanscrm-backend
+    env_file:
+      - .env
+    ports:
+      - "4000:4000" # Port mapping for the Node.js app
+    volumes:
+      - app_data:/usr/src/app # Persistent volume for the app data
+    networks:
+      - app-network
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    container_name: redis1
+    ports:
+      - "6379:6379" # Redis default port
+    volumes:
+      - redis_data:/data # Persistent volume for Redis data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  app_data:
+    driver: local
+  redis_data:
+    driver: local

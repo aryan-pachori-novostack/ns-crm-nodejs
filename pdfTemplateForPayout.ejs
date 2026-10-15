@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RU Loans - Lead Payout</title>
+  <style>
+    @page {
+      size: landscape;
+      margin: 0.5in;
+    }
+    @media print {
+      @page {
+        size: landscape;
+        margin: 0.5in;
+      }
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.4;
+      color: #333;
+      background-color: #fff;
+    }
+    .header-section {
+      border-bottom: 2px solid #0066cc;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+    .info-section {
+      background-color: #f8f9fa;
+      padding: 15px;
+      margin: 15px 0;
+      border-left: 4px solid #0066cc;
+      border-radius: 4px;
+    }
+    .deal-table {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+    }
+    .deal-table th, .deal-table td {
+      border-right: 1px solid #e0e0e0;
+    }
+    .deal-table th:last-child, .deal-table td:last-child {
+      border-right: none;
+    }
+    .table-header {
+      background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+      color: white;
+      font-weight: 600;
+    }
+    .table-row:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+    .table-row:hover {
+      background-color: #e3f2fd;
+    }
+  </style>
+</head>
+
+<body>
+  <%
+    // Helper function to format numbers with up to 4 decimal places, removing trailing zeros
+    function formatNumber(num) {
+      if (num == null || num === '') return '_';
+      const parsed = parseFloat(num);
+      if (isNaN(parsed)) return '_';
+      return parsed.toFixed(4).replace(/\.?0+$/, '');
+    }
+  %>
+  <div class="header-section">
+    <div style="text-align: center;">
+      <img
+        src="https://ruloans-bucket.s3.ap-south-1.amazonaws.com/push_notification_meta/push_notification_meta_heyperlink-content-icon108a6b2e-25ee-4aa8-9d5a-20639066904b.jpg"
+        alt="RU Loans Logo" style="vertical-align: middle; height: 45px; margin-bottom: 8px;" />
+    </div>
+    <h1 style="text-align: center; font-size: 20px; margin: 8px 0; color: #0066cc; font-weight: 600;">
+      PAYOUT AGREEMENT - <%= dsa_name %>
+    </h1>
+    <div style="text-align: center; font-size: 11px; margin: 8px 0; color: #666; font-style: italic;">
+      Generated on: <%= new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' , year: 'numeric' , month: '2-digit'
+        , day: '2-digit' , hour: '2-digit' , minute: '2-digit' , second: '2-digit' , hour12: true }) %>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <% if(referrer_name || referrer_mobile_number){ %>
+      <% if (referrer_name) { %>
+        <div style="display: flex; align-items: center; font-size: 13px; margin: 8px 0;">
+          <span style="font-weight: 600; margin-right: 8px; color: #0066cc;">Referred By:</span>
+          <span><%= referrer_name %> (<%= referrer_mobile_number %>)</span>
+        </div>
+      <% } %>
+    <% } %>
+
+    <% if (assigning_payout_percentage) { %>
+      <div style="display: flex; align-items: center; font-size: 13px; margin: 8px 0;">
+        <span style="font-weight: 600; margin-right: 8px; color: #0066cc;">Deal Percentage:</span>
+        <span><%= formatNumber(assigning_payout_percentage) %>%</span>
+      </div>
+    <% } %>
+
+    <% if (vendor_deal_description) { %>
+      <div style="font-size: 13px; font-weight: 600; margin: 12px 0 6px 0; color: #0066cc;">
+        Deal Description:
+      </div>
+      <div style="font-size: 12px; line-height: 1.5; color: #555;">
+        <%- vendor_deal_description %>
+      </div>
+    <% } %>
+  </div>
+
+  <div style="font-size: 16px; font-weight: 600; color: #0066cc; margin: 25px 0 15px 0; text-align: center;">
+    PAYOUT STRUCTURE
+  </div>
+  <% if (Array.isArray(data) && data.length > 0) { %>
+    <table class="deal-table" style="margin: 15px auto; border-collapse: collapse; width: 98%; border: none;">
+      <thead>
+        <tr class="table-header">
+          <th style="padding: 12px; text-align: left; font-size: 11px; width: 22%; border: none;">BANK / NBFC NAME</th>
+          <th style="padding: 12px; text-align: left; font-size: 11px; width: 20%; border: none;">SUB PRODUCT</th>
+          <th style="padding: 12px; text-align: left; font-size: 11px; width: 10%; border: none;">LOGIN CODE</th>
+          <th style="padding: 12px; text-align: right; font-size: 11px; width: 12%; border: none;">RATE</th>
+          <th style="padding: 12px; text-align: right; font-size: 11px; width: 12%; border: none;">RATIO</th>
+          <th style="padding: 12px; text-align: left; font-size: 11px; width: 24%; border: none;">REMARKS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach((item, index) => { %>
+          <tr class="table-row" style="border-bottom: 1px solid #e0e0e0;">
+            <td style="padding: 10px 8px; text-align: left; font-size: 11px; font-weight: 500; border: none;">
+              <%= item.bank_name %>
+            </td>
+            <td style="padding: 10px 8px; text-align: left; font-size: 11px; border: none;">
+              <%= item.main_product %>
+            </td>
+            <td style="padding: 10px 8px; text-align: left; font-size: 10px; font-family: monospace; border: none;">
+              <%= item.login_code ? item.login_code : "_" %>
+            </td>
+            <td style="padding: 10px 8px; text-align: right; font-size: 11px; font-weight: 600; color: #0066cc; border: none;">
+              <%= formatNumber(item.payout_percentage_lead) %>%
+            </td>
+            <td style="padding: 10px 8px; text-align: right; font-size: 11px; font-weight: 600; color: #0066cc; border: none;">
+              <%= item.ratio ? formatNumber(item.ratio) : "_" %>
+            </td>
+            <td style="padding: 10px 8px; text-align: left; font-size: 11px; border: none;">
+              <%= item.remarks ? item.remarks : "_" %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <div style="text-align: center; margin-top: 20px; font-size: 10px; color: #666; font-style: italic;">
+      This document contains confidential payout information. Please handle with care.
+    </div>
+  <% } else { %>
+    <div style="text-align: center; margin: 40px 0; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+      <p style="font-size: 14px; color: #666; margin: 0;">No payout data available for this agreement.</p>
+    </div>
+  <% } %>
+</body>
+
+</html>

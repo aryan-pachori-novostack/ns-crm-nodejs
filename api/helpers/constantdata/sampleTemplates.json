@@ -1,0 +1,62 @@
+{
+  "unity_smb_pl_mis_upload": {
+    "fileName": "Unity_PL_MIS_Upload_Sample",
+    "data": [
+      {
+        "application_reference_no": "OPLF202603593648",
+        "Loan_status": "LOGIN",
+        "BRE1_DECISION": "ENHANCEMENT",
+        "APPROVAL_LOAN_AMOUNT": "150000",
+        "utm_campaign": "your-internal-lead-id",
+        "Reject_reason": "",
+        "Name": "Sample Customer",
+        "Application No": "OPLF202603593648",
+        "Disbursement Date": "",
+        "Loan Status": "",
+        "Amount": "",
+        "UTM Source": "Ruloan",
+        "UTM camp": "your-internal-lead-id"
+      }
+    ]
+  },
+  "loanwalle_pl_mis_upload": {
+    "fileName": "Loanwalle_PL_MIS_Upload_Sample",
+    "data": [
+      {
+        "Lead No": "LW0013666904",
+        "Is Reloan Case": "No",
+        "Source": "Ruloan",
+        "Loan Amount": "",
+        "Rejection Remarks": "",
+        "Final Status": "HARD_REJECT",
+        "Lead Stage": "HARD_REJECT",
+        "Applied On": "27-06-26",
+        "Amount Disbursed": "",
+        "Disbursal Date": "",
+        "UTM Source": "Ruloan",
+        "UTM Campaign": "affiliate",
+        "UTM Medium": "mcl-aff",
+        "Click ID": "8ba14a19-c76b-472e-a875-917a41cbdab7"
+      }
+    ]
+  },
+  "rm_user_upload": {
+    "fileName": "RM_Users_Bulk_Upload_Sample",
+    "data": [
+      {
+        "*code": "RM001",
+        "city": "Mumbai",
+        "branch_name": "Mumbai Branch",
+        "sp_id": "SP1001",
+        "sp_name": "John Doe",
+        "product_id": 1,
+        "pincode": "400001",
+        "sp_email": "john.doe@example.com",
+        "sp_mobile": "9876543210",
+        "reference_id": "REF100",
+        "location_tag": "West",
+        "Note/Instructions": "Columns starting with * (asterisk) are match keys. If a matching record is found in the database, it will be updated; otherwise, a new record is created."
+      }
+    ]
+  }
+}

@@ -1,0 +1,281 @@
+diff --git a/api/services/customer-services.js b/api/services/customer-services.js
+index 4adff1050..43be30a4b 100644
+--- a/api/services/customer-services.js
++++ b/api/services/customer-services.js
+@@ -220,7 +220,7 @@ exports.createCustomerLoanDetails = async (data) => {
+     let banker_id = banker_mobile ? await updateOrCreateRMUser({ city, email: banker_email, phone: banker_mobile, name: banker_name, netsuite_bank_id: bank_id, product_id, logged_in_user_id: loggedInUser?.id }) : null;
+     let asm_id = asm_mobile ? await updateOrCreateRMUser({ city, email: asm_email, phone: asm_mobile, name: asm_name, netsuite_bank_id: bank_id, product_id, logged_in_user_id: loggedInUser?.id }) : null;
+ 
+-    let existingDataQuery = `SELECT flc.dsa_id, flc.customer_first_name , flc.customer_last_name , flc.customer_company_name , flc.city , k.ns_hierarchy , k.permanent_account_number , rdsa.business_head_code , k.class_id , rdsa.materialized_path , rdsa.hierarchy_crm , p.dsa_id as partner_id , ba.account_number FROM ru_fresh_lead_claims flc left join ru_direct_selling_agents rdsa on flc.dsa_id = rdsa.dsa_id left join ru_dsa_kyc_data k on flc.dsa_id = k.dsa_id left join ru_dsa_bank_accounts ba on flc.dsa_id = ba.dsa_id left join ru_direct_selling_agents p  on rdsa.partner_code = p.dsa_mobile_number WHERE flc.fresh_lead_id = ?`;
++    let existingDataQuery = `SELECT flc.dsa_id, flc.customer_first_name , flc.customer_middle_name , flc.customer_last_name , flc.customer_company_name , flc.city , k.ns_hierarchy , k.permanent_account_number , rdsa.business_head_code , k.class_id , rdsa.materialized_path , rdsa.hierarchy_crm , p.dsa_id as partner_id , ba.account_number FROM ru_fresh_lead_claims flc left join ru_direct_selling_agents rdsa on flc.dsa_id = rdsa.dsa_id left join ru_dsa_kyc_data k on flc.dsa_id = k.dsa_id left join ru_dsa_bank_accounts ba on flc.dsa_id = ba.dsa_id left join ru_direct_selling_agents p  on rdsa.partner_code = p.dsa_mobile_number WHERE flc.fresh_lead_id = ?`;
+     let existingData = await _db2.query(existingDataQuery, {
+         replacements: [fresh_lead_id],
+         type: QueryTypes.SELECT,
+@@ -231,7 +231,7 @@ exports.createCustomerLoanDetails = async (data) => {
+         return { errorMsg }
+     }
+ 
+-    let { customer_first_name, customer_last_name, dsa_id, permanent_account_number, ns_hierarchy, customer_company_name, business_head_code, class_id, hierarchy_crm, partner_id, materialized_path, account_number } = existingData[0]
++    let { customer_first_name, customer_middle_name, customer_last_name, dsa_id, permanent_account_number, ns_hierarchy, customer_company_name, business_head_code, class_id, hierarchy_crm, partner_id, materialized_path, account_number } = existingData[0]
+ 
+     // Check if ns_contest_id exists in ru_events
+     if (ns_contest_id) {
+@@ -246,6 +246,7 @@ exports.createCustomerLoanDetails = async (data) => {
+     if (disbursement_date_iso) {
+         isDuplicate = await checkIfDuplcateLeadExist({
+             first_name: customer_first_name,
++            middle_name: customer_middle_name,
+             last_name: customer_last_name,
+             disbursement_date_iso,
+             netsuite_vendor_id,
+diff --git a/api/services/dsa-services.js b/api/services/dsa-services.js
+index 91f4640de..bfc830db1 100644
+--- a/api/services/dsa-services.js
++++ b/api/services/dsa-services.js
+@@ -9045,7 +9045,7 @@ const AddFreshLeadClaim = async (data, loggedInUser) => {
+     /* let payoutObj = []; */
+     let errorMsg = null;
+     for (let i = 0; i < data.length; i++) {
+-        const { permanent_account_number, business_categories, is_split_case, dsa_mobile_number, product_name, bank_name, bank_id, first_name, last_name, loan_number, apac_ref_los_number, company_name, disbursement_amount, disbursement_date, city, payout_type, payout_rate, payout_ratio, netsuite_vendor_id, netsuite_product_id, platform, regexPattern, dsa_id, registered_by_id, is_dsa_blacklisted, is_dsa_deleted, class_id, partner_id, current_hierarchy_crm, current_hierarchy_path, vendor_remark, account_number, is_company, ns_contest_id } = data[i];
++        const { permanent_account_number, business_categories, is_split_case, dsa_mobile_number, product_name, bank_name, bank_id, first_name, middle_name = '', last_name, loan_number, apac_ref_los_number, company_name, disbursement_amount, disbursement_date, city, payout_type, payout_rate, payout_ratio, netsuite_vendor_id, netsuite_product_id, platform, regexPattern, dsa_id, registered_by_id, is_dsa_blacklisted, is_dsa_deleted, class_id, partner_id, current_hierarchy_crm, current_hierarchy_path, vendor_remark, account_number, is_company, ns_contest_id } = data[i];
+         if (is_dsa_blacklisted || is_dsa_deleted) {
+             errorMsg = ` This DSA is Blacklisted / Deleted `
+             continue;
+@@ -9145,6 +9145,7 @@ const AddFreshLeadClaim = async (data, loggedInUser) => {
+             isDuplicate = await checkIfDuplcateLeadExist(
+                 {
+                     first_name,
++                    middle_name,
+                     last_name,
+                     disbursement_date_iso,
+                     netsuite_vendor_id,
+@@ -9203,14 +9204,14 @@ const AddFreshLeadClaim = async (data, loggedInUser) => {
+ 
+ 
+         if (i == 0) {
+-            query = ` insert into ru_fresh_lead_claims(dsa_id ,business_categories, fresh_lead_status_id, fresh_lead_id, dsa_mobile_number, product_name, bank_name, netsuite_bank_id, customer_full_name, customer_first_name, customer_last_name, claim_month, loan_reference_id, loan_apac_ref_los_number, customer_company_name, loan_status, disbursement_amount, disbursement_date, disbursement_date_iso, city, vendor_payout_type, vendor_payout_rate ,  vendor_payout_ratio,netsuite_vendor_id, netsuite_product_id, request_date, request_date_iso, platform, form_type, created_by, is_split_case , vendor_payout_amount , payout_collide , payout_collide_value , multi_funded_flag , claim_pending_flag , class_id , partner_id , current_hierarchy_crm , current_hierarchy_path , vendor_remark, user_type, ns_contest_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
++            query = ` insert into ru_fresh_lead_claims(dsa_id ,business_categories, fresh_lead_status_id, fresh_lead_id, dsa_mobile_number, product_name, bank_name, netsuite_bank_id, customer_full_name, customer_first_name, customer_middle_name, customer_last_name, claim_month, loan_reference_id, loan_apac_ref_los_number, customer_company_name, loan_status, disbursement_amount, disbursement_date, disbursement_date_iso, city, vendor_payout_type, vendor_payout_rate ,  vendor_payout_ratio,netsuite_vendor_id, netsuite_product_id, request_date, request_date_iso, platform, form_type, created_by, is_split_case , vendor_payout_amount , payout_collide , payout_collide_value , multi_funded_flag , claim_pending_flag , class_id , partner_id , current_hierarchy_crm , current_hierarchy_path , vendor_remark, user_type, ns_contest_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+         }
+         else {
+-            query += `,(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
++            query += `,(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+         };
+         let id = uuid();
+ 
+-        bindParams = bindParams.concat([dsa_id, business_categories, confirmation_required ? 13 : 0, id, dsa_mobile_number, product_name, bank_name, bank_id, first_name + " " + last_name, first_name, last_name, claim_month, loan_number, apac_ref_los_number, company_name, "disbursed", disbursement_amount, disbursement_date ? formatDateIndianFormat(disbursement_date) : null, disbursement_date_iso, city, payout_type?.toLowerCase(), payout_rate, payout_ratio, netsuite_vendor_id, netsuite_product_id, formatSignupDate(new Date()), request_date_iso, platform || "crm", "lead_form", loggedInUser?.id || null, is_split_case ? "yes" : "no", vendor_payout_amount, payout_collide, payout_collide_value, isDuplicate ? 0 : -1, 1, class_id || null, partner_id || null, current_hierarchy_crm || null, current_hierarchy_path || null, vendor_remark || '', user_type, ns_contest_id || null]);
++        bindParams = bindParams.concat([dsa_id, business_categories, confirmation_required ? 13 : 0, id, dsa_mobile_number, product_name, bank_name, bank_id, first_name + " " + (middle_name ? middle_name + " " : "") + last_name, first_name, middle_name || '', last_name, claim_month, loan_number, apac_ref_los_number, company_name, "disbursed", disbursement_amount, disbursement_date ? formatDateIndianFormat(disbursement_date) : null, disbursement_date_iso, city, payout_type?.toLowerCase(), payout_rate, payout_ratio, netsuite_vendor_id, netsuite_product_id, formatSignupDate(new Date()), request_date_iso, platform || "crm", "lead_form", loggedInUser?.id || null, is_split_case ? "yes" : "no", vendor_payout_amount, payout_collide, payout_collide_value, isDuplicate ? 0 : -1, 1, class_id || null, partner_id || null, current_hierarchy_crm || null, current_hierarchy_path || null, vendor_remark || '', user_type, ns_contest_id || null]);
+ 
+         await insertOrUpdateLeadMeta({
+             fresh_lead_id: id,
+@@ -10446,7 +10447,7 @@ const validateAndInsertLeadForInstantClaim = async (application_id, dsa_id, nets
+         return { isValid: false, errorMsg: "Loan Type not Found!" }
+     }
+ 
+-    let query = `select pl.dsa_id , pl.claim_status , pl.status , pl.disbursed_loan_amount , pl.product_id , pl.external_id , plm.disbursed_date , c.first_name , c.last_name , c.full_name , c.address_city as city , c.company_name  from ${tableName[loan_type]} pl left join ${tableName[loan_type]?.replace(/s$/, "_metas")} plm on plm.application_id = pl.application_id left join ru_customers c on pl.customer_id = c.customer_id  where pl.application_id = ? ORDER BY plm.created_at DESC LIMIT 1`
++    let query = `select pl.dsa_id , pl.claim_status , pl.status , pl.disbursed_loan_amount , pl.product_id , pl.external_id , plm.disbursed_date , c.first_name , c.middle_name , c.last_name , c.full_name , c.address_city as city , c.company_name  from ${tableName[loan_type]} pl left join ${tableName[loan_type]?.replace(/s$/, "_metas")} plm on plm.application_id = pl.application_id left join ru_customers c on pl.customer_id = c.customer_id  where pl.application_id = ? ORDER BY plm.created_at DESC LIMIT 1`
+     let bindParams = [application_id];
+     let result = await _db2.query(query, { replacements: bindParams, type: QueryTypes.SELECT })
+ 
+@@ -10485,6 +10486,7 @@ const validateAndInsertLeadForInstantClaim = async (application_id, dsa_id, nets
+ 
+     const request_date_iso = new Date().toISOString().split('T')[0];
+     const customer_first_name = result[0].first_name;
++    const customer_middle_name = result[0].middle_name || '';
+     const customer_last_name = result[0].last_name;
+     const customer_full_name = result[0].full_name;
+     const customer_company_name = result[0].company_name;
+@@ -10563,6 +10565,7 @@ const validateAndInsertLeadForInstantClaim = async (application_id, dsa_id, nets
+         netsuite_bank_id: bank_id,
+         netsuite_product_id: product_id,
+         customer_first_name: customer_first_name,
++        customer_middle_name: customer_middle_name,
+         customer_last_name: customer_last_name,
+         customer_full_name: customer_full_name,
+         city: customer_city,
+@@ -10593,8 +10596,8 @@ const validateAndInsertLeadForInstantClaim = async (application_id, dsa_id, nets
+         loan_type: loan_type
+     }
+ 
+-    query = ` insert into ru_fresh_lead_claims(business_categories, fresh_lead_status_id, fresh_lead_id, dsa_id, dsa_mobile_number, product_name, bank_name, netsuite_bank_id, customer_full_name, customer_first_name, customer_last_name, claim_month, loan_reference_id, loan_apac_ref_los_number, customer_company_name, loan_status, disbursement_amount, disbursement_date, disbursement_date_iso, city, vendor_payout_type, vendor_payout_rate ,  vendor_payout_ratio,netsuite_vendor_id, netsuite_product_id, request_date, request_date_iso, platform, form_type, created_by, is_split_case , vendor_payout_amount , payout_collide , payout_collide_value , multi_funded_flag , claim_pending_flag , app_ref_id , loan_type) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+-    bindParams = [data.business_categories, data.fresh_lead_status_id, data.fresh_lead_id, data.dsa_id, data.dsa_mobile_number, data.product_name, data.bank_name, data.netsuite_bank_id, data.customer_full_name, data.customer_first_name, data.customer_last_name, data.claim_month, data.loan_reference_id, data.loan_apac_ref_los_number, data.customer_company_name, data.loan_status, data.disbursement_amount, data.disbursement_date, data.disbursement_date_iso, data.city, data.vendor_payout_type, data.vendor_payout_rate, data.vendor_payout_ratio, data.netsuite_vendor_id, data.netsuite_product_id, data.request_date, data.request_date_iso, data.platform, data.form_type, data.created_by, data.is_split_case, data.vendor_payout_amount, data.payout_collide, data.payout_collide_value, data.multi_funded_flag, data.claim_pending_flag, data.app_ref_id, data.loan_type];
++    query = ` insert into ru_fresh_lead_claims(business_categories, fresh_lead_status_id, fresh_lead_id, dsa_id, dsa_mobile_number, product_name, bank_name, netsuite_bank_id, customer_full_name, customer_first_name, customer_middle_name, customer_last_name, claim_month, loan_reference_id, loan_apac_ref_los_number, customer_company_name, loan_status, disbursement_amount, disbursement_date, disbursement_date_iso, city, vendor_payout_type, vendor_payout_rate ,  vendor_payout_ratio,netsuite_vendor_id, netsuite_product_id, request_date, request_date_iso, platform, form_type, created_by, is_split_case , vendor_payout_amount , payout_collide , payout_collide_value , multi_funded_flag , claim_pending_flag , app_ref_id , loan_type) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
++    bindParams = [data.business_categories, data.fresh_lead_status_id, data.fresh_lead_id, data.dsa_id, data.dsa_mobile_number, data.product_name, data.bank_name, data.netsuite_bank_id, data.customer_full_name, data.customer_first_name, data.customer_middle_name || '', data.customer_last_name, data.claim_month, data.loan_reference_id, data.loan_apac_ref_los_number, data.customer_company_name, data.loan_status, data.disbursement_amount, data.disbursement_date, data.disbursement_date_iso, data.city, data.vendor_payout_type, data.vendor_payout_rate, data.vendor_payout_ratio, data.netsuite_vendor_id, data.netsuite_product_id, data.request_date, data.request_date_iso, data.platform, data.form_type, data.created_by, data.is_split_case, data.vendor_payout_amount, data.payout_collide, data.payout_collide_value, data.multi_funded_flag, data.claim_pending_flag, data.app_ref_id, data.loan_type];
+     await _db2.query(query, { replacements: bindParams, type: QueryTypes.INSERT })
+ 
+     // Search for tentative bank file match
+diff --git a/api/services/finance-services.js b/api/services/finance-services.js
+index f8744b2b2..e4a22a989 100644
+--- a/api/services/finance-services.js
++++ b/api/services/finance-services.js
+@@ -157,34 +157,47 @@ exports.onlineLeadCheck = async (product_name, dsa_id, loan_number, apac_ref_los
+ 
+ 
+ exports.checkIfDuplcateLeadExist = async (data) => {
+-  let { first_name, last_name, disbursement_date_iso, city, netsuite_vendor_id, netsuite_product_id, netsuite_bank_id, fresh_lead_id } = data;
+-  let disbursement_month = disbursement_date_iso.split('-')[1];
++  let { first_name, middle_name = '', last_name, disbursement_date_iso, city, netsuite_vendor_id, netsuite_product_id, netsuite_bank_id, fresh_lead_id } = data;
++  
++  let disbursement_month = disbursement_date_iso ? disbursement_date_iso.split('-')[1] : null;
++  if (!disbursement_month) return null;
++
+   let query = ` select main_product from ru_netsuite_products where netsuite_product_id = ? `;
+   let bindParams = [netsuite_product_id];
+   let productData = await _db2.query(query, { replacements: bindParams, type: QueryTypes.SELECT });
+   productData = productData[0];
+-  if (!productData || !productData.main_product) {
+-    return null;
++  let main_product = productData?.main_product || null;
++
++  query = ` 
++    select flc.* , n.main_product 
++    from ru_fresh_lead_claims flc 
++    left join ru_netsuite_products n on flc.netsuite_product_id = n.netsuite_product_id COLLATE utf8mb4_general_ci 
++    where flc.customer_first_name = ? 
++      and flc.customer_middle_name = ? 
++      and flc.customer_last_name = ? 
++      and MONTH(flc.disbursement_date_iso) = ? 
++      and flc.netsuite_vendor_id = ? 
++      and flc.loan_status = "disbursed" 
++      and flc.is_deleted = 0 
++      and (
++        flc.netsuite_bank_id = ? 
++        OR flc.netsuite_product_id = ? 
++        OR n.main_product = ? 
++        OR flc.city = ?
++      )
++  `;
++  
++  if (fresh_lead_id) {
++    query += ` and flc.fresh_lead_id != '${fresh_lead_id}' `;
+   }
+-  const product_loan_type = productData.main_product.toLowerCase().replace(/\s+/g, '_');
+-  if (product_loan_type == "personal_loan") {
+-    query = ` select flc.* , n.main_product from ru_fresh_lead_claims flc left join ru_netsuite_products n  on flc.netsuite_product_id = n.netsuite_product_id COLLATE utf8mb4_general_ci where flc.customer_first_name = ? and flc.customer_last_name = ? and MONTH(flc.disbursement_date_iso) = ? and flc.netsuite_bank_id != ? and flc.netsuite_vendor_id = ? and city = ? and loan_status = "disbursed" and flc.is_deleted = 0 `;
+-    if (fresh_lead_id) {
+-      query += ` and flc.fresh_lead_id != '${fresh_lead_id}' `;
+-    };
+-    bindParams = [first_name, last_name, disbursement_month, netsuite_bank_id, netsuite_vendor_id, city];
+-    let result = await _db2.query(query, { replacements: bindParams, type: QueryTypes.SELECT });
+-    if (result.length) {
+-      for (let i = 0; i < result.length; i++) {
+-        if (result[i].main_product) {
+-          const loan_type = result[i].main_product.toLowerCase().replace(/\s+/g, '_');
+-          if (loan_type == "personal_loan") {
+-            return result[i];
+-          }
+-        }
+-      }
+-    }
++
++  bindParams = [first_name, middle_name, last_name, disbursement_month, netsuite_vendor_id, netsuite_bank_id, netsuite_product_id, main_product, city];
++  let result = await _db2.query(query, { replacements: bindParams, type: QueryTypes.SELECT });
++  
++  if (result.length) {
++    return result[0];
+   }
++  
+   return null;
+ }
+ 
+diff --git a/api/v1/validation/dsa/index.js b/api/v1/validation/dsa/index.js
+index b3f7a5207..be0f67c2d 100644
+--- a/api/v1/validation/dsa/index.js
++++ b/api/v1/validation/dsa/index.js
+@@ -1475,6 +1475,7 @@ const AddFreshLeadClaim = Joi.object({
+     'bank_id': Joi.string().required(),
+     'full_name': Joi.string().allow(null, ""),
+     'first_name': Joi.string().required(),
++    'middle_name': Joi.string().required(),
+     'last_name': Joi.string().required(),
+     'claim_month': Joi.string().optional().allow(null, ""),
+     'loan_number': Joi.string().optional().allow(null, ""),
+diff --git a/jobs/processors/services/leadFormService.js b/jobs/processors/services/leadFormService.js
+index 3f116de5a..f0a884b20 100644
+--- a/jobs/processors/services/leadFormService.js
++++ b/jobs/processors/services/leadFormService.js
+@@ -140,6 +140,7 @@ async function checkFreshLeadExistence(leadData, isSplitCase, disbursementDateIs
+ async function checkDuplicateLead(leadData) {
+     const {
+         customer_first_name,
++        customer_middle_name,
+         customer_last_name,
+         disbursement_date_iso,
+         netsuite_vendor_id,
+@@ -151,6 +152,7 @@ async function checkDuplicateLead(leadData) {
+     
+     const isDuplicate = await checkIfDuplcateLeadExist({
+         first_name: customer_first_name,
++        middle_name: customer_middle_name,
+         last_name: customer_last_name,
+         disbursement_date_iso,
+         netsuite_vendor_id,
+diff --git a/jobs/processors/uploadLeadFormData.js b/jobs/processors/uploadLeadFormData.js
+index 4a99e3223..ffeb9273b 100644
+--- a/jobs/processors/uploadLeadFormData.js
++++ b/jobs/processors/uploadLeadFormData.js
+@@ -264,7 +264,7 @@ module.exports = async function (job) {
+                 let bank_name = bank?.bank_name || dataNew[i].bank_nbfc_name;
+                 let customer_full_name = dataNew[i].borrower_name;
+                 let customer_first_name = dataNew[i].borrower_first_name;
+-                let customer_middle_name = '';
++                let customer_middle_name = dataNew[i].borrower_middle_name ? dataNew[i].borrower_middle_name.toString().trim() : '';
+                 let borrower_company_name = dataNew[i].borrower_company_name;
+                 let leader_name = dataNew[i].leader_name
+                 let sub_leader_name = dataNew[i].sub_leader_name;
+@@ -454,6 +454,14 @@ module.exports = async function (job) {
+                     userDetailsError.push(tempR)
+                     continue;
+                 }
++                if (!customer_middle_name) {
++                    error = `Borrower_Middle_Name Is Mandatory Field . `
++                    let tempR = dataNew[i];
++                    tempR.error = error;
++                    faliureCount++;
++                    userDetailsError.push(tempR)
++                    continue;
++                }
+                 if (!customer_last_name) {
+                     error = `Borrower_Last_Name Is Mandatory Field . `
+                     let tempR = dataNew[i];
+@@ -850,6 +858,7 @@ module.exports = async function (job) {
+                 if (disbursement_date_iso) {
+                     isDuplicate = await checkIfDuplcateLeadExist({
+                         first_name: customer_first_name,
++                        middle_name: customer_middle_name,
+                         last_name: customer_last_name,
+                         disbursement_date_iso,
+                         netsuite_vendor_id,
+@@ -877,6 +886,7 @@ module.exports = async function (job) {
+                         bank_name || null,
+                         customer_full_name,
+                         customer_first_name,
++                        customer_middle_name,
+                         customer_last_name,
+                         dsa_mobile_number,
+                         disbursement_date,
+@@ -914,7 +924,7 @@ module.exports = async function (job) {
+                         ns_contest_id || null,
+                         ref_id,
+                     ];
+-                    const updateQuery = `update ru_fresh_lead_claims set fresh_lead_status_id = ?, dsa_id = ?, product_name =? , claim_month = ?, loan_reference_id = ?, loan_apac_ref_los_number = ?, bank_name = ?, customer_full_name = ?, customer_first_name = ?, customer_last_name = ?, dsa_mobile_number = ?, disbursement_date = ?, disbursement_date_iso = ?, disbursement_amount = ?,vendor_payout_rate = ?,vendor_payout_amount = ?,payout_collide = ?, payout_collide_value = ?, leader_name = ?,sub_leader_name = ?,is_split_case = ?,vendor_payout_type = ?,business_categories = ?,request_date = ?,request_date_iso = ?, netsuite_bank_id = ?,netsuite_product_id = ?,netsuite_vendor_id = ?,vendor_payout_ratio = ?,city = ?, upload_file_name = ?,bh_sub_leader = ?,vendor_remark = ?,lead_name_display = ?, customer_company_name = ?,  updated_at = ?, loan_status = ?,  multi_funded_flag = ?, claim_pending_flag = ?, class_id =? , current_hierarchy_crm=? , current_hierarchy_path=? , partner_id=? , ns_contest_id=? where fresh_lead_id = ?`;
++                    const updateQuery = `update ru_fresh_lead_claims set fresh_lead_status_id = ?, dsa_id = ?, product_name =? , claim_month = ?, loan_reference_id = ?, loan_apac_ref_los_number = ?, bank_name = ?, customer_full_name = ?, customer_first_name = ?, customer_middle_name = ?, customer_last_name = ?, dsa_mobile_number = ?, disbursement_date = ?, disbursement_date_iso = ?, disbursement_amount = ?,vendor_payout_rate = ?,vendor_payout_amount = ?,payout_collide = ?, payout_collide_value = ?, leader_name = ?,sub_leader_name = ?,is_split_case = ?,vendor_payout_type = ?,business_categories = ?,request_date = ?,request_date_iso = ?, netsuite_bank_id = ?,netsuite_product_id = ?,netsuite_vendor_id = ?,vendor_payout_ratio = ?,city = ?, upload_file_name = ?,bh_sub_leader = ?,vendor_remark = ?,lead_name_display = ?, customer_company_name = ?,  updated_at = ?, loan_status = ?,  multi_funded_flag = ?, claim_pending_flag = ?, class_id =? , current_hierarchy_crm=? , current_hierarchy_path=? , partner_id=? , ns_contest_id=? where fresh_lead_id = ?`;
+ 
+                     await _db2.query(updateQuery, {
+                         replacements,
+@@ -978,6 +988,7 @@ module.exports = async function (job) {
+                         bank_name || null,
+                         customer_full_name,
+                         customer_first_name,
++                        customer_middle_name,
+                         customer_last_name,
+                         dsa_mobile_number,
+                         disbursement_date,
+@@ -1024,7 +1035,7 @@ module.exports = async function (job) {
+                     //////console.log(replacements)
+ 
+                     const insertQuery = `
+-            INSERT INTO ru_fresh_lead_claims (fresh_lead_status_id, fresh_lead_id, dsa_id, product_name, claim_month, loan_reference_id, loan_apac_ref_los_number, bank_name, customer_full_name, customer_first_name, customer_last_name, dsa_mobile_number, disbursement_date, disbursement_date_iso, disbursement_amount,vendor_payout_rate,vendor_payout_amount,payout_collide, payout_collide_value, leader_name,sub_leader_name,is_split_case,vendor_payout_type,business_categories,request_date,request_date_iso, netsuite_bank_id,netsuite_product_id,netsuite_vendor_id,vendor_payout_ratio,city, upload_file_name,created_by,bh_sub_leader,vendor_remark,lead_name_display, customer_company_name, created_at, updated_at, platform, form_type , loan_status, multi_funded_flag , claim_pending_flag , class_id , current_hierarchy_crm, current_hierarchy_path, partner_id , user_type , ns_contest_id )  values(?,?,?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
++            INSERT INTO ru_fresh_lead_claims (fresh_lead_status_id, fresh_lead_id, dsa_id, product_name, claim_month, loan_reference_id, loan_apac_ref_los_number, bank_name, customer_full_name, customer_first_name, customer_middle_name, customer_last_name, dsa_mobile_number, disbursement_date, disbursement_date_iso, disbursement_amount,vendor_payout_rate,vendor_payout_amount,payout_collide, payout_collide_value, leader_name,sub_leader_name,is_split_case,vendor_payout_type,business_categories,request_date,request_date_iso, netsuite_bank_id,netsuite_product_id,netsuite_vendor_id,vendor_payout_ratio,city, upload_file_name,created_by,bh_sub_leader,vendor_remark,lead_name_display, customer_company_name, created_at, updated_at, platform, form_type , loan_status, multi_funded_flag , claim_pending_flag , class_id , current_hierarchy_crm, current_hierarchy_path, partner_id , user_type , ns_contest_id )  values(?,?,?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+ 
+ 
+                     // Execute the raw query with bind parameters

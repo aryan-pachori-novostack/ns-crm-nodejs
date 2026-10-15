@@ -1,0 +1,11 @@
+const MS_URL = process.env.MS_URL;
+const AUTH_KEY_RULOANS_BANK_CLAIM = process.env.AUTH_KEY_RULOANS_BANK_CLAIM;
+const PERSONAL_LOAN_NETSUITE_ID = process.env.PERSONAL_LOAN_NETSUITE_ID || "215";
+
+
+module.exports = {
+    MS_URL,
+    AUTH_KEY_RULOANS_BANK_CLAIM,
+    PERSONAL_LOAN_NETSUITE_ID
+};
+

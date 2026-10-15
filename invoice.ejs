@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Invoice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 8px;
+        }
+.annexure-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    font-family: sans-serif;
+    background-color: white;
+    padding: 10px;
+    page-break-before: always;
+    break-before: page;
+}
+
+
+.annexure-container table {
+    page-break-inside: auto; /* Allow break inside table */
+}
+
+.annexure-container tr {
+    page-break-inside: auto; /* Allow break inside rows */
+}
+
+.annexure-container thead {
+    display: table-header-group; /* Ensures headers repeat on page breaks */
+}
+
+.annexure-container tbody {
+    display: table-row-group;
+}
+        .invoice-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            font-family: sans-serif;
+            border: 2px solid #000;
+            background-color: white;
+            position: relative;
+            height: 1100px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        table, th, td {
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        .page-break {
+            page-break-before: always;
+            break-before: page;
+        }
+
+        .border-block {
+            border: 1px solid black;
+        }
+
+        .p-6 {
+            padding: 4px;
+        }
+
+        .address td, .address th {
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        .pl-4 {
+            padding-left: 4px;
+        }
+
+        .title {
+            font-weight: 500;
+        }
+
+        .address {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 8px;
+            gap: 8px;
+        }
+
+        .heading {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+            margin-top: 0;
+        }
+
+        .heading-sub {
+            font-size: 13px;
+            margin-top: 10px;
+            margin-bottom: 2px;
+        }
+
+        .header, .header-th {
+            background-color: #F0FAFF;
+        }
+
+        .main-content {
+            padding: 8px;
+            flex: 1;
+            margin-bottom: 80px;
+        }
+
+        .header {
+            padding: 8px 4px;
+        }
+
+        .desc {
+            font-size: 11px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
+        .amount-title {
+            font-size: 12px;
+            margin-top: 10px;
+            margin-bottom: 0;
+            text-decoration: underline;
+        }
+
+        .amount-desc {
+            font-size: 12px;
+            margin-top: 2px;
+            margin-bottom: 0;
+        }
+
+        .tax-breakup-td, .tax-remitt-td {
+            width: 180px;
+        }
+
+        .main-footer {
+            border-top: 1px solid #000;
+            padding: 6px 8px;
+            font-size: 10px;
+            position: absolute;
+            margin-top: auto; 
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .signature-section {
+            position: absolute;
+            bottom: 60px;
+            right: 20px;
+            width: calc(100% - 40px);
+        }
+
+        .terms-section {
+            margin-top: 30px;
+            margin-bottom: 80px;
+        }
+
+        .items-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        
+        .items-table th, 
+        .items-table td {
+            border: 1px solid #000;
+            padding: 4px;
+        }
+        
+        .total-row {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .total-row td {
+            border: 1px solid #000;
+            padding: 4px;
+        }
+
+        /* Ensure content fits on one page */
+        .content-wrapper {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- First Page with Border -->
+    <div class="invoice-container">
+        <p style="text-align: center;margin-top: 20px;margin-bottom: 4px;" class="heading">TAX INVOICE</p>
+        <div class="main-content">
+            <!-- Content remains the same as before -->
+            <!-- Bill From Section -->
+            <div class="header">
+                <p class="heading-sub heading">Bill From</p>
+                <p class="heading">
+                    <%= invoice.vendor_company_name || 'N/A' %>
+                </p>
+                <p class="desc" style="max-width:270px;">
+                    <%= invoice.complete_office_address%>
+                </p>
+                <div class="address">
+                    <table>
+                        <tr>
+                            <td>
+                                <span class="title">
+                                    PAN NO:
+                                </span>
+                            </td>
+                            <td class="pl-4">
+                                <%= invoice.vendor_pan || 'N/A' %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="title">
+                                    GST NO:
+                                </span>
+                            </td>
+                            <td class="pl-4">
+                                <%= invoice.vendor_gstin || 'N/A' %>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td>
+                                <span class="title">
+                                    Mobile:
+                                </span>
+                            </td>
+                            <td class="pl-4">
+                                <%= invoice.vendor_mobile_number || 'N/A' %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="title">
+                                    Email:
+                                </span>
+                            </td>
+                            <td class="pl-4">
+                                <%= invoice.vendor_email_address || 'N/A' %>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Bill To Section -->
+            <div style="margin-top: 40px;">
+                <p class="heading-sub heading">Bill To</p>
+                <p class="heading">RULOANS Distribution Services Private Limited</p>
+                <p class="desc">Office No 7 AND 8, 215 Magan Mahal, Sir M V Road, Court Lane,<br />Andheri East Mumbai 27-MH
+                    400069
+                    India</p>
+                <div class="address">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                Phone:
+                            </td>
+                            <td class="pl-4">+91 8657015918</td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Email:
+                            </td>
+                            <td class="pl-4">accounts@ruloans.com</td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                PAN:
+                            </td>
+                            <td class="pl-4">
+                                AAHCR3757M
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                GSTIN:
+                            </td>
+                            <td class="pl-4">
+                                27AAHCR3757M1ZR
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td align="right" class="title">
+                                Invoice No:
+                            </td>
+                            <td class="pl-4">
+                                <%= invoice.invoice_number || 'N/A' %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="title">
+                                Ref No:
+                            </td>
+                            <td class="pl-4">
+                                <%= invoice.bill_number || 'N/A' %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="title">
+                                Invoice Date:
+                            </td>
+                            <td class="pl-4">
+                                <%= formatDate(invoice.transaction_date) %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="title">
+                                Place of Supply:
+                            </td>
+                            <td class="pl-4">
+                                <%= invoice.city || 'N/A' %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="title">
+                                Supply under Reverse charge (Yes/No):
+                            </td>
+                            <td class="pl-4">
+                                <%= invoice.is_supply_reverse_charges ? 'Yes' : 'No' %>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Items Table -->
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th class="header-th" align="left">S/R NO</th>
+                        <th class="header-th" align="left">Service Description</th>
+                        <th class="header-th" align="left">Invoice Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% invoice.list_items.forEach((item, index)=> { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= item.expense_type || '-' %></td>
+                            <td><%= item.amount %></td>
+                        </tr>
+                    <% }); %>
+                    <tr>
+                        <td></td>
+                        <td style="border: 1px solid #000; padding: 4px;">Total</td>
+                        <td style="border: 1px solid #000; padding: 4px;"><%= invoice.total_amount.toFixed(2) %></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Amount in Words -->
+            <p class="title amount-title">
+                Amount in words:-
+            </p>
+            <p class="title amount-desc">
+                <%= amountToWords(invoice.total_amount) %> Only
+            </p>
+
+     
+
+        
+
+            <!-- Signature -->
+            <div class="signature-section">
+                <p style="text-decoration: underline;text-align: right;">Authorised Signatories</p>
+            </div>
+        </div>
+        <div class="main-footer">
+            <p style="text-align: center; font-size: 12px;">
+                This invoice was generated with the help of Ruloans Distribution Services Private Limited.
+            </p>
+            <p style="font-size: 12px; text-align: center;">
+                To learn more, visit <a href="https://ruloans.com">ruloans.com</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Annexure on Second Page (No Border) -->
+    <div class="page-break annexure-container">
+        <p style="margin-bottom: 0; font-weight: 600; padding-top: 20px;">Annexure to Invoice</p>
+        
+        <table style="margin-top: 20px; width: 100%; table-layout: fixed; font-size: 11px; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Internal ID</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Claim Month</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Customer Name</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Disb. Date</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Disb. Amount</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Bank Disb.Amount</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Bank Id</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Product</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Payout Rate</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Actual Paid Rate</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Claim Payout</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Confirmed Payout</th>
+                    <th class="header-th" align="left" style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;">Status by Script</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% consolidated_expenses.forEach((item)=> { %>
+                <tr>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.netsuite_vendor_id || '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.claim_month || '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.customer_full_name || '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.disbursement_date ? formatDate(item.disbursement_date) : '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.disbursement_amount ? parseFloat(item.disbursement_amount).toFixed(2) : '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.actual_bank_disb_amount ? parseFloat(item.actual_bank_disb_amount).toFixed(2) : '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.actual_bank_id || '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.product_name || '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.actual_payout_rate || '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.actual_paid_rate || '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.actual_claim_payout || '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.actual_confirmed_payout || '-' %></td>
+                    <td style="word-wrap: break-word; white-space: normal; border: 1px solid #000; padding: 4px;"><%= item.actual_status_by_script || '-' %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
